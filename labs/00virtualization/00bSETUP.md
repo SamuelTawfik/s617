@@ -27,6 +27,9 @@ VirtualBox is the free hypervisor that actually runs the VM.
 > Troubleshoot: if virtualbox request dependence and finished premature run PowerShell or Terminal as Administrator.
 > ```
 >  winget install -e --id Microsoft.VC++2015-2022Redistributable.x64
+> # Do you agree to all the source agreements terms?
+> # [Y] Yes  [N] No:
+> # type Y
 >  winget install -e --id Oracle.VirtualBox
 >   ```
 > 
