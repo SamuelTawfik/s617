@@ -123,13 +123,10 @@ Press `Ctrl+C` in the first terminal to stop it.
 Open the entrypoint script and read it - especially the last line:
 
 ```bash
-cat entrypoint.sh
+cat ~/Desktop/s617/labs/00virtualization/docker-demo/webapp/entrypoint.sh
 ```
 
-The key idea is **`exec "$@"`**. The `ENTRYPOINT` script runs first (startup
-work: read config, wait for other services), then `exec "$@"` **replaces itself
-with the real program** (the `CMD`). That makes the app **PID 1** so it receives
-`docker stop` signals directly and shuts down cleanly.
+The key idea is **`exec "$@"`**. The `ENTRYPOINT` script runs first (startup work: read config, wait for other services), then `exec "$@"` **replaces itself with the real program** (the `CMD`). That makes the app **PID 1** so it receives `docker stop` signals directly and shuts down cleanly.
 
 See it - the entrypoint messages print, then the server starts, and you passed
 configuration in with `-e`:
@@ -156,12 +153,11 @@ shooter. No game to install: you play it in your browser.
 Go to the folder and read the compose file:
 
 ```bash
-cd ../webgame      # from docker-demo/webapp, this is docker-demo/webgame
+cd ~/Desktop/s617/labs/00virtualization/docker-demo/webgame      # from docker-demo/webapp, this is docker-demo/webgame
 cat docker-compose.yml
 ```
 
-Notice the key parts: the `image` (pulled ready-made), the `ports`, and a second
-`tools` service for Part 5. Start the whole stack:
+Notice the key parts: the `image` (pulled ready-made), the `ports`, and a second `tools` service for Part 5. Start the whole stack:
 
 ```bash
 docker compose up -d
@@ -180,7 +176,7 @@ docker compose logs -f game  # follow the game server's output (Ctrl+C to stop
 (the Vagrantfile forwards the port to your host) - the game loads and you're in.
 Classmates who open the same shared server can play together.
 
-> 📸 **Screenshot:** _the game running in your browser at localhost:3001._
+> ![he game running in your browser at localhost:3001.](./images/024Game.png)
 
 **Run a command inside the running server** with `exec`:
 
@@ -188,6 +184,7 @@ Classmates who open the same shared server can play together.
 docker compose exec game sh      # a shell INSIDE the game container
 # look around, then:  exit
 ```
+> ![open a shell isolated in the container using docker compose](./images/024BShellFromCompose.png)
 
 ### The everyday Compose commands - the set to remember
 
@@ -242,8 +239,7 @@ private network is a network namespace with a veth pair, exactly what you built
 by hand in Lab 01. Docker just automated it. (In the real world, that companion
 container might be a status monitor or a bot sitting next to the game server.)
 
-> 📸 **Screenshot:** _`ping game` succeeding from inside the `tools`
-> container._
+> ![ping game` succeeding from inside the `tools` container](./images/025pingame.png)
 
 Tear the stack down when you're done:
 
@@ -288,14 +284,14 @@ Add to your S617 portfolio:
 3. `docker compose ps` with the game server up, and the game running in your
    browser at `localhost:3001`.
 4. `ping game` succeeding from inside the `tools` container.
-5. **In your own words (3–4 sentences):** what does `exec "$@"` do in an
+5. **In your own words (3-4 sentences):** what does `exec "$@"` do in an
    entrypoint script, and why does it matter for stopping a container cleanly?
 
 Commit under `submissions/<your-username>/lab02/` and open a pull request.
 
 ---
 
-## Show it off - add this to your portfolio & résumé
+## Show it off - add this to your portfolio & resume
 
 Finishing this lab isn't just a grade - it's real, demonstrable experience you
 can put in front of an employer. Here's how to present it.
@@ -316,7 +312,7 @@ seconds. That README *is* your portfolio piece - the public link you can share.
 - **Container security fundamentals** - least-privilege users, minimal port
   exposure, secrets handling, and why a mounted Docker socket is dangerous.
 
-**Résumé / LinkedIn bullet examples** (adapt to what you actually did):
+**Resume / LinkedIn bullet examples** (adapt to what you actually did):
 - "Containerized a web application with Docker, authoring a Dockerfile and
   entrypoint script for clean, signal-safe startup and shutdown."
 - "Deployed a multi-service stack with Docker Compose, configuring

@@ -4,7 +4,7 @@
 
 > **Goal:** Actually *perform* a container escape - go from a bug in a web page
 > to **full control of the host** - then **fix it** and prove the fix works.
-> This is the hands-on version of the escapes you read about in Labs 00–01.
+> This is the hands-on version of the escapes you read about in Labs 00-01.
 
 ---
 
@@ -184,7 +184,7 @@ for: an **empty User** (means root), **Privileged=true**, or a **Mount whose
 source is `/`** or another sensitive host path. Any of those in a review is a
 finding.
 
-**Your hardening checklist** (keep this - it's résumé-ready knowledge):
+**Your hardening checklist** (keep this - it's resume-ready knowledge):
 - Run containers as a **non-root** user.
 - **Never** bind-mount the host root or sensitive paths; if you must mount, scope
   it tightly and use `:ro`.
@@ -208,7 +208,7 @@ Or just `vagrant destroy -f && vagrant up` for a guaranteed clean slate.
 
 ---
 
-## Show it off - add this to your portfolio & résumé
+## Show it off - add this to your portfolio & resume
 
 This is a standout piece - most junior candidates have never *performed* a
 container escape, let alone remediated one.
@@ -220,7 +220,7 @@ container escape, let alone remediated one.
 4. **In your own words:** which single misconfiguration made the escape
    possible, and the one change that would have prevented it.
 
-**Résumé / interview framing:**
+**Resume / interview framing:**
 - "Performed and remediated a container-to-host escape via an over-permissive
   bind-mount and root execution; applied least-privilege container hardening
   (non-root, dropped capabilities, read-only mounts, no-new-privileges)."

@@ -11,7 +11,7 @@ request. This is the same loop you practiced in Guide 2, now for keeps.
 Contributing to a public GitHub repository builds your professional portfolio and hones your real-world skills.
 
 ** Career & Professional Growth**
-> Visible Portfolio: Your public contributions act as a living résumé that recruiters and hiring managers can review directly.
+> Visible Portfolio: Your public contributions act as a living resume that recruiters and hiring managers can review directly.
 > Job Opportunities: Active contributions can lead to networking connections, project collaborations, and job offers.
 > Proof of Soft Skills: Following a project's Contributing Guidelines shows you can communicate well and follow instructions.
 

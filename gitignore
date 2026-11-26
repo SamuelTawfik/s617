@@ -1,0 +1,20 @@
+# --- Vagrant ---
+.vagrant/
+*.box
+
+# --- Secrets (never commit real values; commit a .env.example instead) ---
+.env
+*.env
+!.env.example
+
+# --- Docker / runtime data (e.g. a Minecraft world if a volume lands locally) ---
+world/
+data/
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
