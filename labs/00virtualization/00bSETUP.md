@@ -23,6 +23,13 @@ VirtualBox is the free hypervisor that actually runs the VM.
    - **Windows:** "Windows hosts"
    - **Intel Mac:** "macOS / Intel hosts"
 3. Run the installer, accept the defaults, and reboot if it asks.
+
+> Troubleshoot: if virtualbox request dependence and finished premature run PowerShell or Terminal as Administrator.
+> ```
+>  winget install -e --id Microsoft.VC++2015-2022Redistributable.x64
+>  winget install -e --id Oracle.VirtualBox
+>   ```
+> 
 4. Verify from a terminal (PowerShell on Windows, Terminal on Mac):
    ```
    VBoxManage --version
