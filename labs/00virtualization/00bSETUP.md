@@ -57,6 +57,10 @@ $\color{red}{\text{skip that step if you are in the S617 cybersecurity lab room 
    vagrant --version
    ```
    You want a recent version (2.4.x or newer). If yours is old, uninstall it and install the current 64-bit build - newer boxes need it.
+> > Troubleshoot: if you countered problems installing vagrant in windows, run PowerShell or Terminal as Administrator then run that command
+> > ```
+> > winget install -e --id Hashicorp.Vagrant
+> > ```
 
 >  ![vagrant installed](./images/vagrant.png)
 
