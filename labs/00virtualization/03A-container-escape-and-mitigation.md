@@ -2,13 +2,12 @@
 
 **Cybersecurity Lab Room S617 - Virtualization & Containerization**
 
-> **Goal:** Actually *perform* a container escape - go from a bug in a web page
-> to **full control of the host** - then **fix it** and prove the fix works.
+> **Goal:** Actually *perform* a container escape - go from a bug in a web page to **full control of the host** then **fix it** and prove the fix works.
 > This is the hands-on version of the escapes you read about in Labs 00-01.
 
 ---
 
-## ⚠️ Rules of engagement - read this first
+##  Rules of engagement - read this first
 
 - You will run a **deliberately vulnerable app** and attack it. Do this **only
   on your own S617 workshop VM**. The "host" you compromise is **your own
@@ -47,7 +46,10 @@ Read `docker-compose.yml` before moving on. The two red flags: the container
 runs as **root**, and `- /:/hostroot` mounts the **whole host filesystem** into
 the container, read-write.
 
-> 📸 **Screenshot:** _the compose file, with the `/:/hostroot` line visible._
+> ![he compose file, with the `/:/hostroot` line visible.](./images/031composeHostRoot.png)
+
+
+> ![Running container](./images/03A1composeCommand.png)
 
 ---
 
@@ -73,7 +75,8 @@ curl "http://localhost:8081/?cmd=hostname"      # the container's ID
 curl "http://localhost:8081/?cmd=ls%20/"        # the container's filesystem
 ```
 
-> 📸 **Screenshot:** _the `?cmd=id` output showing `uid=0(root)`._
+> ![the `?cmd=id` output showing `uid=0(root)`](./images/03A2cmdId.png)
+
 
 > `%20` is just a URL-encoded space. In the **browser** you can type normal
 > spaces: `http://localhost:8081/?cmd=ls /`.
@@ -108,8 +111,9 @@ There it is - a file written to the host's `/root` **by a web request to a
 container**. That is a container escape: the isolation was defeated by a
 misconfiguration, not a magic exploit.
 
-> 📸 **Screenshot:** _`sudo cat /root/ESCAPED.txt` on the host showing your
-> message - the money shot._
+> ![read and Write to the host commands](./images/03A3aEscCommands.png)
+
+> ![`sudo cat /root/ESCAPED.txt` on the host showing your message](./images/03A3Bmessage.png)
 
 **Why it worked (say it in one sentence):** the container ran as root *and* the
 host filesystem was mounted inside it, so "root in the container" became "root
@@ -155,8 +159,7 @@ you're not root, and there's no host mount to reach. That's **defense in depth**
 - you assume the app gets popped, and the container config stops it from
 becoming a host compromise.
 
-> 📸 **Screenshot:** _`?cmd=id` showing a non-root uid, and `ls /hostroot`
-> failing on the hardened stack._
+> ![`?cmd=id` showing a non-root uid, and `ls /hostroot` failing on the hardened stack](./images/03A4hardened.png)
 
 Tear it down:
 
@@ -178,6 +181,9 @@ docker inspect escape-web-1 --format 'User={{.Config.User}}  Privileged={{.HostC
 docker inspect escape-web-1 --format 'Mounts={{range .Mounts}}{{.Source}}->{{.Destination}} {{end}}'
 docker compose down
 ```
+
+> ![docker inspect escape-web-1](./images/03A5inspect.png)
+
 
 (Container name may differ - `docker ps` shows it.) The red flags you're looking
 for: an **empty User** (means root), **Privileged=true**, or a **Mount whose
